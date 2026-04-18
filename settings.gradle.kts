@@ -1,4 +1,5 @@
-rootProject.name = "Yahtzeeenginekmp"
+
+rootProject.name = "Yahtzee-Engine-kmp"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

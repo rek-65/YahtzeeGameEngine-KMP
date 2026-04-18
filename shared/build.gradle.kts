@@ -1,4 +1,7 @@
+
+import org.gradle.jvm.tasks.Jar
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+import org.gradle.api.publish.maven.MavenPublication
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
@@ -63,4 +66,22 @@ tasks.register<Jar>("dokkaHtmlJar") {
     dependsOn("dokkaGenerate")
     archiveClassifier.set("javadoc")
     from(layout.buildDirectory.dir("dokka/html"))
+}
+
+gradle.projectsEvaluated {
+    publishing {
+        publications.withType<MavenPublication>().all {
+            val baseName = "yahtzee-engine-kmp"
+
+            artifactId = when (name) {
+                "kotlinMultiplatform" -> baseName
+                else -> "$baseName-$name"
+            }
+        }
+    }
+}
+
+tasks.withType<Jar>().configureEach {
+    archiveBaseName.set("yahtzee-engine-kmp")
+    archiveVersion.set(project.version.toString())
 }
