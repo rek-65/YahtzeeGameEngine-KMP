@@ -93,9 +93,13 @@ gradle.projectsEvaluated {
         publications.withType<org.gradle.api.publish.maven.MavenPublication>().all {
             val baseName = providers.gradleProperty("POM_ARTIFACT_ID").get()
 
+            val normalizedPublicationName = name
+                .replace(Regex("([a-z0-9])([A-Z])"), "$1-$2")
+                .lowercase()
+
             artifactId = when (name) {
                 "kotlinMultiplatform" -> baseName
-                else -> "$baseName-$name"
+                else -> "$baseName-$normalizedPublicationName"
             }
             pom {
                 name.set(providers.gradleProperty("POM_ARTIFACT_ID"))
