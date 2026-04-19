@@ -26,6 +26,16 @@ dependencyResolutionManagement {
             }
         }
         mavenCentral()
+        maven {
+            name = "GitHubPackages"
+            url = uri("https://maven.pkg.github.com/rek-65/yahtzeegameengine-kmp")
+            credentials {
+                username = providers.gradleProperty("gpr.user").orNull
+                    ?: System.getenv("GITHUB_ACTOR")
+                password = providers.gradleProperty("gpr.key").orNull
+                    ?: System.getenv("GITHUB_TOKEN")
+            }
+        }
     }
 }
 

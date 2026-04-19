@@ -7,5 +7,5 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform) apply false
 }
 
-group = "com.rekcode.yahtzee"
-version = "1.0.0"
+group = providers.gradleProperty("GROUP").get()
+version = providers.gradleProperty("VERSION_NAME").get()
